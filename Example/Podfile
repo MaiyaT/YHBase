@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'YHBase_Example' do
+  pod 'YHBase', :path => '../'
+
+  target 'YHBase_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end
