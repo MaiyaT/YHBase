@@ -1,42 +1,47 @@
-#
-# Be sure to run `pod lib lint YHBase.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
 
 Pod::Spec.new do |s|
-  s.name             = 'YHBase'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of YHBase.'
+    s.name             = 'YHBase'
+    s.version          = '1.0.0'
+    s.summary          = 'GitHub MaiyaT - YHBase.'
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
+    s.description      = <<-DESC
+    YHBase url is https://github.com/MaiyaT/YHBase.git.
                        DESC
 
-  s.homepage         = 'https://github.com/<GITHUB_USERNAME>/YHBase'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '林宁宁' => '763465697@qq.com' }
-  s.source           = { :git => 'https://github.com/<GITHUB_USERNAME>/YHBase.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+    s.homepage         = 'https://github.com/MaiyaT/YHBase'
+    # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+    s.license          = { :type => 'MIT', :file => 'LICENSE' }
+    s.author           = { '林宁宁' => '763465697@qq.com' }
+    s.source           = { :git => 'https://github.com/MaiyaT/YHBase.git', :tag => s.version.to_s }
+    # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+    s.ios.deployment_target = '8.0'
+    s.platform     = :ios, '7.0'
 
-  s.source_files = 'YHBase/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'YHBase' => ['YHBase/Assets/*.png']
-  # }
+    s.source_files = 'YHBase/Classes/**/*'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+    s.resource_bundles = {
+     'YHBase' => ['YHBase/Assets/*.png']
+    }
+
+    # s.public_header_files = 'Pod/Classes/**/*.h'
+    # s.frameworks = 'UIKit', 'MapKit'
+
+    s.requires_arc = true
+
+
+    s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC -lstdc++', 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => "true"}
+
+    s.libraries = 'sqlite3'
+
+    s.dependency 'SCLAlertView-Objective-C'
+    s.dependency 'Masonry'
+    s.dependency 'pop'
+    s.dependency 'FMDB'
+    s.dependency 'SVProgressHUD'
+    s.dependency 'AFNetworking'
+    s.dependency 'IAPHelper'
+    s.dependency 'AHKActionSheet'
+    s.dependency 'SDWebImage'
+
 end

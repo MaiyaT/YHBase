@@ -1,0 +1,6 @@
+framework module Pods_YHBase_Example {
+  umbrella header "Pods-YHBase_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
