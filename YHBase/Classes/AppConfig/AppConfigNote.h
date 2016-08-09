@@ -40,6 +40,9 @@
 #define APP_ORDER_NAME          [[AppConfigNote shareManager] noteAppOrderName]
 
 
+#define APP_BundleID            [[AppConfigNote shareManager] noteBundleID]
+
+
 #define isDebug     [[AppConfigNote shareManager] noteAPPIsDebug]
 
 #define isChina     [[AppConfigNote shareManager] noteAPPIsInChina]
@@ -85,6 +88,10 @@
 
 #define BMOB_TAB_NOTE_LIST          [[AppConfigNote shareManager] noteTableNoteList]
 
+#define BMOB_TAB_FEEDBACK           [[AppConfigNote shareManager] noteTableFeedback]
+
+#define BMOB_ADMIN_ID               [[AppConfigNote shareManager] noteTableAdminID]
+
 
 
 
@@ -105,6 +112,11 @@
 
 
 
+
+
+//key
+#define SECRET_KEY1                 [[AppConfigNote shareManager] noteSecretKey1]
+#define SECRET_KEY2                 [[AppConfigNote shareManager] noteSecretKey2]
 
 
 
@@ -169,6 +181,15 @@
 @property (copy, nonatomic) NSString * noteTableUInfo;
 @property (copy, nonatomic) NSString * noteTableOrder;
 @property (copy, nonatomic) NSString * noteTableNoteList;
+@property (copy, nonatomic) NSString * noteTableFeedback;
+
+//admin
+@property (copy, nonatomic) NSString * noteTableAdminID;
+
+
+
+//bundleID
+@property (copy, nonatomic) NSString * noteBundleID;
 
 
 //ad gdt
@@ -177,12 +198,20 @@
 @property (copy, nonatomic) NSString * noteADGDTChaping;
 @property (copy, nonatomic) NSString * noteADGDTKaiping;
 @property (assign, nonatomic) NSInteger noteADGDTBannerTime;
+@property (retain, nonatomic) NSArray * noteADGDTNativeList;
 
 //ad gdt
 @property (copy, nonatomic) NSString * noteADADMobKey;
 @property (retain, nonatomic) NSArray * noteADADMobBanners;
+@property (retain, nonatomic) NSArray * noteADADMobNativeList;
 @property (copy, nonatomic) NSString * noteADADMobChaping;
 @property (copy, nonatomic) NSString * noteADADMobKaiping;
 @property (assign, nonatomic) NSInteger noteADADMobBannerTime;
+
+
+//key
+@property (copy, nonatomic) NSString * noteSecretKey1;
+@property (copy, nonatomic) NSString * noteSecretKey2;
+
 
 @end

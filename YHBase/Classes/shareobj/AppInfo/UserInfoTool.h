@@ -21,6 +21,11 @@
 @property (copy, nonatomic) NSString * userLoginType;
 
 /**
+ *  用户已关闭广告 软件的版本
+ */
+@property (copy, nonatomic) NSString * userClosedADAppVersion;
+
+/**
  *  用户已关闭广告
  */
 @property (assign, nonatomic) BOOL userIdClosedAD;
@@ -31,6 +36,11 @@
  */
 @property (copy, nonatomic) NSString * userObjectID;
 
+
+/**
+ *  广告是否是关闭的
+ */
+- (BOOL)appADIsClose;
 
 
 - (void)saveToLocal;

@@ -7,6 +7,8 @@
 //
 
 #import "UserInfoTool.h"
+#import "MacroAppInfo.h"
+
 
 @implementation UserInfoTool
 
@@ -65,6 +67,12 @@
         {
             self.userObjectID = obj;
         }
+        
+        obj = infoDic[@"userClosedADAppVersion"];
+        if([obj isKindOfClass:[NSString class]])
+        {
+            self.userClosedADAppVersion = obj;
+        }
     }
 }
 
@@ -87,7 +95,6 @@
         [dataDic setObject:self.userName forKey:@"userName"];
     }
     
-    
     if(self.userLoginType)
     {
         [dataDic setObject:self.userLoginType forKey:@"userLoginType"];
@@ -100,31 +107,44 @@
     
     [dataDic setObject:@(self.userIdClosedAD) forKey:@"userIdClosedAD"];
     
+    if(self.userClosedADAppVersion)
+    {
+        [dataDic setObject:self.userClosedADAppVersion forKey:@"userClosedADAppVersion"];
+    }
+    
     [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"userinfo"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
-//- (void)updateUserObjectID
-//{
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        if(self.userID && !self.userObjectID)
-//        {
-//            //用户的objectid不存在 更新 或者创建一下
-//            [BMobRequest requestUpdateUserObjectID];
-//        }
-//    });
-//}
+- (BOOL)appADIsClose
+{
+#if TARGET_IPHONE_SIMULATOR
+    return YES;
+#endif
+    
+    if(self.userIdClosedAD)
+    {
+        return YES;
+    }
+    else if ([self.userClosedADAppVersion isEqualToString:[MacroAppInfo APP_VERSION]])
+    {
+        return YES;
+    }
+    return NO;
+}
 
 - (void)cleanUserInfo
 {
     self.userID = nil;
     self.userImageURL = nil;
     self.userName = nil;
-//    self.userIdClosedAD = NO;
+    //    self.userIdClosedAD = NO;
+    
     self.userLoginType = nil;
     self.userObjectID = nil;
+    
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userinfo"];
     
