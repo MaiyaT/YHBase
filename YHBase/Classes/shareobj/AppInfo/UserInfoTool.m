@@ -120,10 +120,6 @@
 
 - (BOOL)appADIsClose
 {
-#if TARGET_IPHONE_SIMULATOR
-    return YES;
-#endif
-    
     if(self.userIdClosedAD)
     {
         return YES;
