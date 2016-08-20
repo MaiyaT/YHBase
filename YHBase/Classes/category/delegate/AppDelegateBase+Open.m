@@ -24,9 +24,6 @@
     //是否需要启动页判断
     if([MacroAppInfo needShowGuid])
     {
-        //    弹出启动页
-        __weak typeof(&*self)weakSelf = self;
-        
         BBXGuideViewController * guideVC = [[BBXGuideViewController alloc] init];
         
         
@@ -58,7 +55,7 @@
 - (void)openHomePageVC
 {
     
-    __weak typeof(&*self)weakSelf = self;
+//    __weak typeof(&*self)weakSelf = self;
     
     [self beginLaunchViewDismissAnimationWithFinishBlock:^{
         
@@ -66,12 +63,12 @@
 //        [weakSelf.window makeKeyAndVisible];
         
         //检查网络
-        [weakSelf setNetworkingConfig];
+        [self setNetworkingConfig];
         
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD setMinimumDismissTimeInterval:1];
         
-        [weakSelf appHomeStart];
+        [self appHomeStart];
     }];
 }
 

@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'YHBase'
-    s.version          = '1.5.2'
+    s.version          = '1.5.3'
     s.summary          = 'GitHub MaiyaT - YHBase.'
 
     s.description      = <<-DESC
