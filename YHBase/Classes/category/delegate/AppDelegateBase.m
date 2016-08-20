@@ -49,10 +49,8 @@
     }
     self.rootNavc = rootNAVC;
     
-    BBXLaunchViewController * launchVC = [BBXLaunchViewController new];
-    
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = launchVC;
+    self.window.rootViewController = self.rootNavc;
     [self.window makeKeyAndVisible];
     
     

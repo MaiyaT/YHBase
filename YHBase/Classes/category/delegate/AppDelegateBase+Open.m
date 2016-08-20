@@ -15,6 +15,8 @@
 #import "SVProgressHUD.h"
 
 
+#define LANUCH_VIEW_TAG         889
+
 @implementation AppDelegateBase (Open)
 
 - (void)startApp
@@ -28,21 +30,13 @@
         BBXGuideViewController * guideVC = [[BBXGuideViewController alloc] init];
         
         
-        [guideVC setEnterAppBlock:^{
+        [guideVC setEnterAppBlock:^(BBXGuideViewController *vc) {
             
-            [weakSelf openHomePageVC];
+            [vc dismissViewControllerAnimated:YES completion:nil];
             
         }];
         
-        [UIView transitionFromView:self.window.rootViewController.view
-                            toView:guideVC.view
-                          duration:0.3
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        completion:^(BOOL finished)
-         {
-             weakSelf.window.rootViewController = guideVC;
-             [weakSelf.window makeKeyAndVisible];
-         }];
+        [self.window.rootViewController presentViewController:guideVC animated:YES completion:nil];
         
     }
     else
@@ -63,25 +57,55 @@
  */
 - (void)openHomePageVC
 {
-    [UIView transitionFromView:self.window.rootViewController.view
-                        toView:self.rootNavc.view
-                      duration:0.3
-                       options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionCurveEaseInOut |UIViewAnimationOptionCurveLinear
-                    completion:^(BOOL finished)
-     {
-         self.window.rootViewController = self.rootNavc;
-         [self.window makeKeyAndVisible];
-         
-         //检查网络
-         [self setNetworkingConfig];
-         
-         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
-         [SVProgressHUD setMinimumDismissTimeInterval:1];
-         
-//         [[UserInfoTool shareManager] updateUserObjectID];
-         
-         [self appHomeStart];
-     }];
+    
+    __weak typeof(&*self)weakSelf = self;
+    
+    [self beginLaunchViewDismissAnimationWithFinishBlock:^{
+        
+//        weakSelf.window.rootViewController = weakSelf.rootNavc;
+//        [weakSelf.window makeKeyAndVisible];
+        
+        //检查网络
+        [weakSelf setNetworkingConfig];
+        
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD setMinimumDismissTimeInterval:1];
+        
+        [weakSelf appHomeStart];
+    }];
 }
+
+
+- (void)beginLaunchViewDismissAnimationWithFinishBlock:(void(^)())finishBlock
+{
+    UIView * launchView = [self.window viewWithTag:LANUCH_VIEW_TAG];
+    
+    if(launchView)
+    {
+        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            
+            launchView.alpha = 0.0f;
+            launchView.layer.transform = CATransform3DScale(CATransform3DIdentity, 1.2, 1.2, 1);
+            
+            
+        } completion:^(BOOL finished) {
+            
+            [launchView removeFromSuperview];
+            
+            if(finishBlock)
+            {
+                finishBlock();
+            }
+        }];
+    }
+    else
+    {
+        if(finishBlock)
+        {
+            finishBlock();
+        }
+    }
+}
+
 
 @end
