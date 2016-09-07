@@ -55,7 +55,7 @@
 - (void)openHomePageVC
 {
     
-//    __weak typeof(&*self)weakSelf = self;
+    [self appHomeStart];
     
     [self beginLaunchViewDismissAnimationWithFinishBlock:^{
         
@@ -68,7 +68,7 @@
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD setMinimumDismissTimeInterval:1];
         
-        [self appHomeStart];
+        
     }];
 }
 

@@ -12,7 +12,10 @@
 
 @property (copy, nonatomic) void(^popAlertBlock)(NSInteger index,NSString * inputContent, BBXAlertTextInputV * alertV,NSString * btnTitle);
 
-+(void)popAlertInputContentWithTitle:(NSString *)title andPlaceHoldTitle:(NSString *)placeTitle andAlertBtnTitle:(NSArray *)btns andLimitWordNum:(NSInteger)limitNum
-    andPopAlertBlock:(void(^)(NSInteger index,NSString * inputContent, BBXAlertTextInputV * alertV,NSString * btnTitle))popAlertBlock;
-
++(void)popAlertInputContentWithTitle:(NSString *)title
+                   andPlaceHoldTitle:(NSString *)placeTitle
+                    andAlertBtnTitle:(NSArray *)btns
+                     andLimitWordNum:(NSInteger)limitNum
+                    andPopAlertBlock:(void (^)(NSInteger, NSString *, BBXAlertTextInputV *, NSString *))popAlertBlock
+                            andTextV:(void (^)(UITextView *))textBlock;
 @end

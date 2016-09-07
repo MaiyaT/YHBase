@@ -214,6 +214,7 @@
                     andAlertBtnTitle:(NSArray *)btns
                      andLimitWordNum:(NSInteger)limitNum
                     andPopAlertBlock:(void (^)(NSInteger, NSString *, BBXAlertTextInputV *, NSString *))popAlertBlock
+                            andTextV:(void (^)(UITextView *))textBlock
 {
     UIWindow * mainV = [[UIApplication sharedApplication] keyWindow];
     
@@ -234,6 +235,11 @@
     popV.popAlertBlock  = popAlertBlock;
     
     [popV creatPopContentV];
+    
+    if(textBlock)
+    {
+        textBlock(popV.popTextV);
+    }
     
     [popV popShowWithBG:alpha!=0];
 }
