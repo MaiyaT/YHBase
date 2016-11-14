@@ -28,28 +28,28 @@
 
 @interface SCLAlertView ()  <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *inputs;
-@property (nonatomic, strong) NSMutableArray *customViews;
-@property (nonatomic, strong) NSMutableArray *buttons;
-@property (nonatomic, strong) UIImageView *circleIconImageView;
-@property (nonatomic, strong) UIView *circleView;
-@property (nonatomic, strong) UIView *circleViewBackground;
-@property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) UIImageView *backgroundView;
-@property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
-@property (nonatomic, strong) NSString *titleFontFamily;
-@property (nonatomic, strong) NSString *bodyTextFontFamily;
-@property (nonatomic, strong) NSString *buttonsFontFamily;
-@property (nonatomic, strong) UIWindow *previousWindow;
-@property (nonatomic, strong) UIWindow *SCLAlertWindow;
-@property (nonatomic, copy) SCLDismissBlock dismissBlock;
-@property (nonatomic, assign) SystemSoundID soundID;
-@property (nonatomic, weak) UIViewController *rootViewController;
-@property (nonatomic, weak) id<UIGestureRecognizerDelegate> restoreInteractivePopGestureDelegate;
-@property (nonatomic) BOOL canAddObservers;
-@property (nonatomic) BOOL keyboardIsVisible;
-@property (nonatomic) BOOL usingNewWindow;
-@property (nonatomic) BOOL restoreInteractivePopGestureEnabled;
+@property (strong, nonatomic) NSMutableArray *inputs;
+@property (strong, nonatomic) NSMutableArray *customViews;
+@property (strong, nonatomic) NSMutableArray *buttons;
+@property (strong, nonatomic) UIImageView *circleIconImageView;
+@property (strong, nonatomic) UIView *circleView;
+@property (strong, nonatomic) UIView *circleViewBackground;
+@property (strong, nonatomic) UIView *contentView;
+@property (strong, nonatomic) UIImageView *backgroundView;
+@property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
+@property (strong, nonatomic) NSString *titleFontFamily;
+@property (strong, nonatomic) NSString *bodyTextFontFamily;
+@property (strong, nonatomic) NSString *buttonsFontFamily;
+@property (strong, nonatomic) UIWindow *previousWindow;
+@property (strong, nonatomic) UIWindow *SCLAlertWindow;
+@property (copy, nonatomic) SCLDismissBlock dismissBlock;
+@property (weak, nonatomic) UIViewController *rootViewController;
+@property (weak, nonatomic) id<UIGestureRecognizerDelegate> restoreInteractivePopGestureDelegate;
+@property (assign, nonatomic) SystemSoundID soundID;
+@property (assign, nonatomic) BOOL canAddObservers;
+@property (assign, nonatomic) BOOL keyboardIsVisible;
+@property (assign, nonatomic) BOOL usingNewWindow;
+@property (assign, nonatomic) BOOL restoreInteractivePopGestureEnabled;
 @property (nonatomic) CGFloat backgroundOpacity;
 @property (nonatomic) CGFloat titleFontSize;
 @property (nonatomic) CGFloat bodyFontSize;
@@ -166,9 +166,9 @@ SCLTimerDisplay *buttonTimer;
     self.usingNewWindow = NO;
     self.canAddObservers = YES;
     self.keyboardIsVisible = NO;
-    self.hideAnimationType = FadeOut;
-    self.showAnimationType = SlideInFromTop;
-    self.backgroundType = Shadow;
+    self.hideAnimationType =  SCLAlertViewHideAnimationFadeOut;
+    self.showAnimationType = SCLAlertViewShowAnimationSlideInFromTop;
+    self.backgroundType = SCLAlertViewBackgroundShadow;
     self.tintTopCircle = YES;
     
     // Font
@@ -364,6 +364,11 @@ SCLTimerDisplay *buttonTimer;
     // Text fields
     CGFloat y = (_labelTitle.text == nil) ? kTitleTop : kTitleTop + _labelTitle.frame.size.height;
     _viewText.frame = CGRectMake(12.0f, y, _windowWidth - 24.0f, _subTitleHeight);
+    
+    if (!_labelTitle && !_viewText) {
+        y = 0.0f;
+    }
+
     y += _subTitleHeight + 14.0f;
     for (SCLTextView *textField in _inputs)
     {
@@ -842,46 +847,46 @@ SCLTimerDisplay *buttonTimer;
     // Icon style
     switch (style)
     {
-        case Success:
+        case SCLAlertViewStyleSuccess:
             viewColor = UIColorFromHEX(0x22B573);
             iconImage = SCLAlertViewStyleKit.imageOfCheckmark;
             break;
             
-        case Error:
+        case SCLAlertViewStyleError:
             viewColor = UIColorFromHEX(0xC1272D);
             iconImage = SCLAlertViewStyleKit.imageOfCross;
             break;
             
-        case Notice:
+        case SCLAlertViewStyleNotice:
             viewColor = UIColorFromHEX(0x727375);
             iconImage = SCLAlertViewStyleKit.imageOfNotice;
             break;
             
-        case Warning:
+        case SCLAlertViewStyleWarning:
             viewColor = UIColorFromHEX(0xFFD110);
             iconImage = SCLAlertViewStyleKit.imageOfWarning;
             break;
             
-        case Info:
+        case SCLAlertViewStyleInfo:
             viewColor = UIColorFromHEX(0x2866BF);
             iconImage = SCLAlertViewStyleKit.imageOfInfo;
             break;
             
-        case Edit:
+        case SCLAlertViewStyleEdit:
             viewColor = UIColorFromHEX(0xA429FF);
             iconImage = SCLAlertViewStyleKit.imageOfEdit;
             break;
             
-        case Waiting:
+        case SCLAlertViewStyleWaiting:
             viewColor = UIColorFromHEX(0x6c125d);
             break;
             
-        case Question:
+        case SCLAlertViewStyleQuestion:
             viewColor = UIColorFromHEX(0x727375);
             iconImage = SCLAlertViewStyleKit.imageOfQuestion;
             break;
             
-        case Custom:
+        case SCLAlertViewStyleCustom:
             viewColor = color;
             iconImage = image;
             self.circleIconHeight *= 2.0f;
@@ -904,6 +909,7 @@ SCLTimerDisplay *buttonTimer;
         // Title is nil, we can move the body message to center and remove it from superView
         self.windowHeight -= _labelTitle.frame.size.height;
         [_labelTitle removeFromSuperview];
+        _labelTitle = nil;
         
         _subTitleY = kCircleHeight - 20;
     }
@@ -946,9 +952,14 @@ SCLTimerDisplay *buttonTimer;
         self.subTitleHeight = 0.0f;
         self.windowHeight -= _viewText.frame.size.height;
         [_viewText removeFromSuperview];
+        _viewText = nil;
         
         // Move up
         _labelTitle.frame = CGRectMake(12.0f, 37.0f, _windowWidth - 24.0f, kTitleHeight);
+    }
+    
+    if (!_labelTitle && !_viewText) {
+        self.windowHeight -= kTitleTop;
     }
     
     // Add button, if necessary
@@ -960,7 +971,7 @@ SCLTimerDisplay *buttonTimer;
     // Alert view color and images
     self.circleView.backgroundColor = self.tintTopCircle ? viewColor : _backgroundViewColor;
     
-    if (style == Waiting)
+    if (style == SCLAlertViewStyleWaiting)
     {
         [self.activityIndicatorView startAnimating];
     }
@@ -980,7 +991,7 @@ SCLTimerDisplay *buttonTimer;
     
     for (SCLButton *btn in _buttons)
     {
-        if (style == Warning)
+        if (style == SCLAlertViewStyleWarning)
         {
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
@@ -1038,32 +1049,32 @@ SCLTimerDisplay *buttonTimer;
 
 - (void)showSuccess:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Success];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleSuccess];
 }
 
 - (void)showError:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Error];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleError];
 }
 
 - (void)showNotice:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Notice];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleNotice];
 }
 
 - (void)showWarning:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Warning];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleWarning];
 }
 
 - (void)showInfo:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Info];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleInfo];
 }
 
 - (void)showEdit:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Edit];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleEdit];
 }
 
 - (void)showTitle:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle style:(SCLAlertViewStyle)style closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
@@ -1073,18 +1084,18 @@ SCLTimerDisplay *buttonTimer;
 
 - (void)showCustom:(UIViewController *)vc image:(UIImage *)image color:(UIColor *)color title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:image color:color title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Custom];
+    [self showTitle:vc image:image color:color title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleCustom];
 }
 
 - (void)showWaiting:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
     [self addActivityIndicatorView];
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Waiting];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleWaiting];
 }
 
 - (void)showQuestion:(UIViewController *)vc title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Question];
+    [self showTitle:vc image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleQuestion];
 }
 
 
@@ -1092,32 +1103,32 @@ SCLTimerDisplay *buttonTimer;
 
 - (void)showSuccess:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Success];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleSuccess];
 }
 
 - (void)showError:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Error];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleError];
 }
 
 - (void)showNotice:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Notice];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleNotice];
 }
 
 - (void)showWarning:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Warning];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleWarning];
 }
 
 - (void)showInfo:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Info];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleInfo];
 }
 
 - (void)showEdit:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Edit];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleEdit];
 }
 
 - (void)showTitle:(NSString *)title subTitle:(NSString *)subTitle style:(SCLAlertViewStyle)style closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
@@ -1127,18 +1138,18 @@ SCLTimerDisplay *buttonTimer;
 
 - (void)showCustom:(UIImage *)image color:(UIColor *)color title:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:image color:color title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Custom];
+    [self showTitle:nil image:image color:color title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleCustom];
 }
 
 - (void)showWaiting:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
     [self addActivityIndicatorView];
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Waiting];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleWaiting];
 }
 
 - (void)showQuestion:(NSString *)title subTitle:(NSString *)subTitle closeButtonTitle:(NSString *)closeButtonTitle duration:(NSTimeInterval)duration
 {
-    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:Question];
+    [self showTitle:nil image:nil color:nil title:title subTitle:subTitle duration:duration completeText:closeButtonTitle style:SCLAlertViewStyleQuestion];
 }
 
 #pragma mark - Visibility
@@ -1217,15 +1228,15 @@ SCLTimerDisplay *buttonTimer;
 {
     switch (_backgroundType)
     {
-        case Shadow:
+        case SCLAlertViewBackgroundShadow:
             [self makeShadowBackground];
             break;
             
-        case Blur:
+        case SCLAlertViewBackgroundBlur:
             [self makeBlurBackground];
             break;
             
-        case Transparent:
+        case SCLAlertViewBackgroundTransparent:
             [self makeTransparentBackground];
             break;
     }
@@ -1237,35 +1248,35 @@ SCLTimerDisplay *buttonTimer;
 {
     switch (_showAnimationType)
     {
-        case FadeIn:
+        case SCLAlertViewShowAnimationFadeIn:
             [self fadeIn];
             break;
             
-        case SlideInFromBottom:
+        case SCLAlertViewShowAnimationSlideInFromBottom:
             [self slideInFromBottom];
             break;
             
-        case SlideInFromTop:
+        case SCLAlertViewShowAnimationSlideInFromTop:
             [self slideInFromTop];
             break;
             
-        case SlideInFromLeft:
+        case SCLAlertViewShowAnimationSlideInFromLeft:
             [self slideInFromLeft];
             break;
             
-        case SlideInFromRight:
+        case SCLAlertViewShowAnimationSlideInFromRight:
             [self slideInFromRight];
             break;
             
-        case SlideInFromCenter:
+        case SCLAlertViewShowAnimationSlideInFromCenter:
             [self slideInFromCenter];
             break;
             
-        case SlideInToCenter:
+        case SCLAlertViewShowAnimationSlideInToCenter:
             [self slideInToCenter];
             break;
             
-        case SimplyAppear:
+        case SCLAlertViewShowAnimationSimplyAppear:
             [self simplyAppear];
             break;
     }
@@ -1277,35 +1288,35 @@ SCLTimerDisplay *buttonTimer;
 {
     switch (_hideAnimationType)
     {
-        case FadeOut:
+        case SCLAlertViewHideAnimationFadeOut:
             [self fadeOut];
             break;
             
-        case SlideOutToBottom:
+        case SCLAlertViewHideAnimationSlideOutToBottom:
             [self slideOutToBottom];
             break;
             
-        case SlideOutToTop:
+        case SCLAlertViewHideAnimationSlideOutToTop:
             [self slideOutToTop];
             break;
             
-        case SlideOutToLeft:
+        case SCLAlertViewHideAnimationSlideOutToLeft:
             [self slideOutToLeft];
             break;
             
-        case SlideOutToRight:
+        case SCLAlertViewHideAnimationSlideOutToRight:
             [self slideOutToRight];
             break;
             
-        case SlideOutToCenter:
+        case SCLAlertViewHideAnimationSlideOutToCenter:
             [self slideOutToCenter];
             break;
             
-        case SlideOutFromCenter:
+        case SCLAlertViewHideAnimationSlideOutFromCenter:
             [self slideOutFromCenter];
             break;
         
-        case SimplyDisappear:
+        case SCLAlertViewHideAnimationSimplyDisappear:
             [self simplyDisappear];
             break;
     }
@@ -1313,6 +1324,11 @@ SCLTimerDisplay *buttonTimer;
     if (_activityIndicatorView)
     {
         [_activityIndicatorView stopAnimating];
+    }
+    
+    if (durationTimer)
+    {
+        [durationTimer invalidate];
     }
     
     if (self.dismissBlock)

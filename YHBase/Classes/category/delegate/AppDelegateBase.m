@@ -30,6 +30,52 @@
     [delegate.homeVC updateHomeContentV];
 }
 
+/**
+ *  当前显示的控制器
+ */
++ (UIViewController *)currentShowVC
+{
+    UIViewController *vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    if(vc.presentedViewController)
+    {
+        if([vc.presentedViewController isKindOfClass:[UINavigationController class]])
+        {
+            UINavigationController * navc = (UINavigationController *)vc.presentedViewController;
+            if(navc.topViewController.presentedViewController)
+            {
+                return navc.topViewController.presentedViewController;
+            }
+            else
+            {
+                return navc.topViewController;
+            }
+        }
+        else
+        {
+            return vc.presentedViewController;
+        }
+    }
+    else
+    {
+        if([vc isKindOfClass:[UINavigationController class]])
+        {
+            UINavigationController * navc = (UINavigationController *)vc;
+            if(navc.topViewController.presentedViewController)
+            {
+                return navc.topViewController.presentedViewController;
+            }
+            else
+            {
+                return navc.topViewController;
+            }
+        }
+        else
+        {
+            return vc;
+        }
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     UIWindow * mainWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -208,6 +254,12 @@
     
     
 }
+
+
+
+
+
+
 
 
 @end

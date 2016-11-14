@@ -32,7 +32,7 @@ CGFloat const kLPPopupDefaultWaitDuration = 2.0f;
 
 static NSString * const kLPAnimationKeyPopup = @"kLPAnimationKeyPopup";
 
-@interface LPPopup ()
+@interface LPPopup ()<CAAnimationDelegate>
 @property (copy, nonatomic) void (^animationCompletion)(LPPopup * popLab);
 @end
 

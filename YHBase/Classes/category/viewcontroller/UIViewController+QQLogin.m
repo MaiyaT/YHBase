@@ -23,7 +23,7 @@
         SCLAlertView * alertV = [[SCLAlertView alloc] initWithNewWindow];
         alertV.iconTintColor = [UIColor whiteColor];
         alertV.customViewColor = [UIColor bbxThemeColor];
-        alertV.backgroundType = Shadow;
+        alertV.backgroundType = SCLAlertViewBackgroundBlur;
         alertV.buttonFormatBlock = ^NSDictionary* (void)
         {
             NSMutableDictionary *buttonConfig = [[NSMutableDictionary alloc] init];
@@ -43,7 +43,7 @@
             
         }];
         
-        [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"提醒" subTitle:showAlertTitle style:Info closeButtonTitle:@"不了" duration:0];
+        [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"提醒" subTitle:showAlertTitle style:SCLAlertViewStyleInfo closeButtonTitle:@"不了" duration:0];
         
         return NO;
     }

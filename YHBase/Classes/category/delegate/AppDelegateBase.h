@@ -26,6 +26,11 @@
 
 + (AppDelegateBase *)shareAppDelegate;
 
+/**
+ *  当前显示的控制器
+ */
++ (UIViewController *)currentShowVC;
+
 + (void)updateHomeTableList;
 
 

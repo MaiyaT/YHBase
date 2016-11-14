@@ -28,7 +28,7 @@
     SCLAlertView * alertV = [[SCLAlertView alloc] initWithNewWindow];
     alertV.iconTintColor = [UIColor whiteColor];
     alertV.customViewColor = [UIColor bbxThemeColor];
-    alertV.backgroundType = Shadow;
+    alertV.backgroundType = SCLAlertViewBackgroundBlur;
     alertV.buttonFormatBlock = ^NSDictionary* (void)
     {
         NSMutableDictionary *buttonConfig = [[NSMutableDictionary alloc] init];
@@ -48,7 +48,7 @@
         
     }];
     
-    [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"\(^o^)/~" subTitle:message style:Notice closeButtonTitle:@"等一等" duration:0];
+    [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"\(^o^)/~" subTitle:message style:SCLAlertViewStyleNotice closeButtonTitle:@"等一等" duration:0];
     
 }
 
@@ -62,7 +62,7 @@
         SCLAlertView * alertV = [[SCLAlertView alloc] initWithNewWindow];
         alertV.iconTintColor = [UIColor whiteColor];
         alertV.customViewColor = [UIColor bbxThemeColor];
-        alertV.backgroundType = Shadow;
+        alertV.backgroundType = SCLAlertViewBackgroundBlur;
         alertV.buttonFormatBlock = ^NSDictionary* (void)
         {
             NSMutableDictionary *buttonConfig = [[NSMutableDictionary alloc] init];
@@ -91,7 +91,7 @@
             }];
         }
         
-        [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"友情提示" subTitle:title style:Notice closeButtonTitle:@"知道了" duration:0];
+        [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"友情提示" subTitle:title style:SCLAlertViewStyleNotice closeButtonTitle:@"知道了" duration:0];
     }
 }
 
