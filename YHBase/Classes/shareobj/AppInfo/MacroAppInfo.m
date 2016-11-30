@@ -24,19 +24,20 @@
 @property (copy, nonatomic) NSString * APP_VERSION;
 
 
-@property (retain, nonatomic) NSNumber * is_iphone4;
+@property (retain, nonatomic) NSNumber * is_iphone3_5;
 
-@property (retain, nonatomic) NSNumber * is_iphone5;
+@property (retain, nonatomic) NSNumber * is_iphone4_0;
 
 /**
  *  4.7寸
  */
-@property (retain, nonatomic) NSNumber * is_iphone6;
+@property (retain, nonatomic) NSNumber * is_iphone4_7;
 
 /**
  *  5.5寸
  */
-@property (retain, nonatomic) NSNumber * is_iphone6p;
+@property (retain, nonatomic) NSNumber * is_iphone5_5;
+
 
 @property (copy, nonatomic) NSString * udid;
 
@@ -88,36 +89,44 @@
 - (void)getDeviceType
 {
     NSString * deviceStr = [DeviceTypeManager getDevicePlatform];
-
-    if([deviceStr containStr:@"iPhone 4"])
+    
+    if([deviceStr containStr:@"iPhone 4"] ||
+       [deviceStr containStr:@"iPhone 4s"])
     {
-        self.is_iphone4 = @(YES);
+        self.is_iphone3_5 = @(YES);
     }
-    else if ([deviceStr containStr:@"iPhone 5"])
+    else if ([deviceStr containStr:@"iPhone 5"] ||
+             [deviceStr containStr:@"iPhone 5c"] ||
+             [deviceStr containStr:@"iPhone 5s"])
     {
-        self.is_iphone5 = @(YES);
+        self.is_iphone4_0 = @(YES);
     }
-    else if ([deviceStr containStr:@"iPhone 6 Plus"])
+    else if ([deviceStr containStr:@"iPhone 6 Plus"] ||
+             [deviceStr containStr:@"iPhone 6s Plus"] ||
+             [deviceStr containStr:@"iPhone 7 Plus"])
     {
-        self.is_iphone6p = @(YES);
+        self.is_iphone5_5 = @(YES);
     }
-    else if ([deviceStr containStr:@"iPhone 6"])
+    else if ([deviceStr containStr:@"iPhone 6"] ||
+             [deviceStr containStr:@"iPhone 7"])
     {
-        self.is_iphone6 = @(YES);
+        self.is_iphone4_7 = @(YES);
     }
     else
     {
-        self.is_iphone4 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO);
+        self.is_iphone3_5 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO);
         
-        self.is_iphone4 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(320, 480), [[UIScreen mainScreen] currentMode].size) : NO);
+        if(!self.is_iphone3_5)
+        {
+            self.is_iphone3_5 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(320, 480), [[UIScreen mainScreen] currentMode].size) : NO);
+        }
         
-        self.is_iphone5 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO);
+        self.is_iphone4_0 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO);
         
-        self.is_iphone6 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO);
+        self.is_iphone4_7 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO);
         
-        self.is_iphone6p = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO);
+        self.is_iphone5_5 = @([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO);
     }
-    
 }
 
 - (void)getDeviceUDID
@@ -192,30 +201,30 @@
     return [[MacroAppInfo shareManager] IOS_VERSION];
 }
 
-+(BOOL)isiPhone6
++(BOOL)isiPhone4_7Inch
 {
-    return [[[MacroAppInfo shareManager] is_iphone6] boolValue];
+    return [[[MacroAppInfo shareManager] is_iphone4_7] boolValue];
 }
 
-+ (BOOL)isiPhone6P
++ (BOOL)isiPhone5_5Inch
 {
-    return [[[MacroAppInfo shareManager] is_iphone6p] boolValue];
+    return [[[MacroAppInfo shareManager] is_iphone5_5] boolValue] ;
 }
 
-+ (BOOL)isiPhone4
++ (BOOL)isiPhone3_5Inch
 {
-    return [[[MacroAppInfo shareManager] is_iphone4] boolValue];
+    return [[[MacroAppInfo shareManager] is_iphone3_5] boolValue];
 }
 
-+ (BOOL)isiPhone5
++ (BOOL)isiPhone4_0Inch
 {
-    return [[[MacroAppInfo shareManager] is_iphone5] boolValue];
+    return [[[MacroAppInfo shareManager] is_iphone4_0] boolValue];
 }
 
-+(BOOL)isiPhone6OriPhone6P
-{
-    return [[[MacroAppInfo shareManager] is_iphone6] boolValue] || [[[MacroAppInfo shareManager] is_iphone6p] boolValue];
-}
+//+(BOOL)isiPhone6OriPhone6P
+//{
+//    return [[[MacroAppInfo shareManager] is_iphone6] boolValue] || [[[MacroAppInfo shareManager] is_iphone6p] boolValue];
+//}
 
 + (NSString *)appServicePhoneNum
 {

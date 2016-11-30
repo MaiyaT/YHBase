@@ -24,7 +24,7 @@
 
 + (CGFloat)fontSize:(CGFloat)oldFont
 {
-    if([MacroAppInfo isiPhone6P])
+    if([MacroAppInfo isiPhone5_5Inch])
     {
         return oldFont;
     }

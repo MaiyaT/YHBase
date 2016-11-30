@@ -111,8 +111,8 @@
     if ([platform isEqualToString:@"iPad4,8"]) return @"iPad mini 3";
     if ([platform isEqualToString:@"iPad4,9"]) return @"iPad mini 3";
     
-    if ([platform isEqualToString:@"iPad5,1"]) return @"iPad mini 3";
-    if ([platform isEqualToString:@"iPad5,2"]) return @"iPad mini 3";
+    if ([platform isEqualToString:@"iPad5,1"]) return @"iPad mini 4";
+    if ([platform isEqualToString:@"iPad5,2"]) return @"iPad mini 4";
     
     
     //iPhone
@@ -126,7 +126,7 @@
     if ([platform isEqualToString:@"iPhone3,2"]) return @"iPhone 4";
     if ([platform isEqualToString:@"iPhone3,3"]) return @"iPhone 4";
     
-    if ([platform isEqualToString:@"iPhone4,1"]) return @"iPhone 4S";
+    if ([platform isEqualToString:@"iPhone4,1"]) return @"iPhone 4s";
     
     if ([platform isEqualToString:@"iPhone5,1"]) return @"iPhone 5";
     if ([platform isEqualToString:@"iPhone5,2"]) return @"iPhone 5";
@@ -145,6 +145,13 @@
     
     if ([platform isEqualToString:@"iPhone8,2"]) return @"iPhone 6s Plus";
     if ([platform isEqualToString:@"iPhone8,4"]) return @"iPhone SE";
+    
+    if ([platform isEqualToString:@"iPhone9,1"]) return @"iPhone 7";
+    if ([platform isEqualToString:@"iPhone9,3"]) return @"iPhone 7";
+    
+    if ([platform isEqualToString:@"iPhone9,2"]) return @"iPhone 7 Plus";
+    if ([platform isEqualToString:@"iPhone9,4"]) return @"iPhone 7 Plus";
+    
     
     //iPod touch
     if ([platform isEqualToString:@"iPod1,1"]) return @"iPod touch";

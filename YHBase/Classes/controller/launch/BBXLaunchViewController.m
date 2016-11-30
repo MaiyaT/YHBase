@@ -25,15 +25,15 @@
     UIImageView * bgImg = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bgImg.autoresizingMask = 0xff;
     
-    if([MacroAppInfo isiPhone6P])
+    if([MacroAppInfo isiPhone5_5Inch])
     {
         bgImg.image = [UIImage imageNamed:@"LaunchImage-800-Portrait-736h"];
     }
-    else if ([MacroAppInfo isiPhone6])
+    else if ([MacroAppInfo isiPhone4_7Inch])
     {
         bgImg.image = [UIImage imageNamed:@"LaunchImage-800-667h"];
     }
-    else if ([MacroAppInfo isiPhone5])
+    else if ([MacroAppInfo isiPhone4_0Inch])
     {
         bgImg.image = [UIImage imageNamed:@"LaunchImage-700-568h"];
     }

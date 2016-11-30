@@ -63,15 +63,13 @@
 /** app的版本号*/
 + (NSString *)APP_VERSION;
 
-+ (BOOL)isiPhone4;
++ (BOOL)isiPhone3_5Inch;
 
-+ (BOOL)isiPhone5;
++ (BOOL)isiPhone4_0Inch;
 
-+ (BOOL)isiPhone6;
++ (BOOL)isiPhone4_7Inch;
 
-+ (BOOL)isiPhone6P;
-
-+ (BOOL)isiPhone6OriPhone6P;
++ (BOOL)isiPhone5_5Inch;
 
 + (BOOL)isiPad;
 

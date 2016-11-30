@@ -28,15 +28,15 @@
     
     self.title = @"使用帮助";
     
-    if([MacroAppInfo isiPhone6P])
+    if([MacroAppInfo isiPhone5_5Inch])
     {
         self.listImageS = @[@"guide_5_5_1",@"guide_5_5_2",@"guide_5_5_3"];
     }
-    else if ([MacroAppInfo isiPhone6])
+    else if ([MacroAppInfo isiPhone4_7Inch])
     {
         self.listImageS = @[@"guide_4_7_1",@"guide_4_7_2",@"guide_4_7_3"];
     }
-    else if ([MacroAppInfo isiPhone5])
+    else if ([MacroAppInfo isiPhone4_0Inch])
     {
         self.listImageS = @[@"guide_4_1",@"guide_4_2",@"guide_4_3"];
     }
