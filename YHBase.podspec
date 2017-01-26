@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'YHBase'
-    s.version          = '1.9.0'
+    s.version          = '2.0.0'
     s.summary          = 'GitHub MaiyaT - YHBase.'
 
     s.description      = <<-DESC
@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
 
     s.libraries = 'sqlite3'
 
-    s.dependency 'SCLAlertView-Objective-C'
+    s.dependency 'JCAlertView'
     s.dependency 'Masonry'
     s.dependency 'pop'
     s.dependency 'FMDB'

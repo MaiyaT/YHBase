@@ -8,7 +8,7 @@
 
 #import "AppDelegateBase+Assess.h"
 #import "AppConfigNote.h"
-#import "SCLAlertView.h"
+#import "JCAlertView.h"
 #import "MacroAppInfo.h"
 #import "UIColor+BBXApp.h"
 
@@ -25,31 +25,15 @@
  */
 - (void)popAssessVWithText:(NSString *)message
 {
-    SCLAlertView * alertV = [[SCLAlertView alloc] initWithNewWindow];
-    alertV.iconTintColor = [UIColor whiteColor];
-    alertV.customViewColor = [UIColor bbxThemeColor];
-    alertV.backgroundType = SCLAlertViewBackgroundBlur;
-    alertV.buttonFormatBlock = ^NSDictionary* (void)
-    {
-        NSMutableDictionary *buttonConfig = [[NSMutableDictionary alloc] init];
-        
-        buttonConfig[@"textColor"] = [UIColor whiteColor];
-        
-        return buttonConfig;
-    };
-    
-    [alertV addButton:@"马上赏" actionBlock:^{
-        
+    [JCAlertView showTwoButtonsWithTitle:@"\(^o^)/~" Message:message ButtonType:2 ButtonTitle:@"马上赏" Click:^{
         [[NSUserDefaults standardUserDefaults] setObject:[MacroAppInfo APP_VERSION] forKey:AlerVersion];
         
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_URL]];
+    } ButtonType:0 ButtonTitle:@"等一等" Click:^{
         
     }];
-    
-    [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"\(^o^)/~" subTitle:message style:SCLAlertViewStyleNotice closeButtonTitle:@"等一等" duration:0];
-    
 }
 
 
@@ -59,39 +43,23 @@
     
     if(!donotShow)
     {
-        SCLAlertView * alertV = [[SCLAlertView alloc] initWithNewWindow];
-        alertV.iconTintColor = [UIColor whiteColor];
-        alertV.customViewColor = [UIColor bbxThemeColor];
-        alertV.backgroundType = SCLAlertViewBackgroundBlur;
-        alertV.buttonFormatBlock = ^NSDictionary* (void)
-        {
-            NSMutableDictionary *buttonConfig = [[NSMutableDictionary alloc] init];
-            
-            buttonConfig[@"textColor"] = [UIColor whiteColor];
-            
-            return buttonConfig;
-        };
-        
         if(haveWarnBtn)
         {
-            [alertV addButton:@"不再提醒" actionBlock:^{
+            [JCAlertView showTwoButtonsWithTitle:@"友情提示" Message:title ButtonType:2 ButtonTitle:@"不再提醒" Click:^{
                 
                 [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:key];
                 
                 [[NSUserDefaults standardUserDefaults] synchronize];
+            } ButtonType:0 ButtonTitle:@"知道了" Click:^{
                 
             }];
         }
         else
         {
-            [alertV alertIsDismissed:^{
-                [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:key];
+            [JCAlertView showOneButtonWithTitle:@"友情提示" Message:title ButtonType:0 ButtonTitle:@"知道了" Click:^{
                 
-                [[NSUserDefaults standardUserDefaults] synchronize];
             }];
         }
-        
-        [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"友情提示" subTitle:title style:SCLAlertViewStyleNotice closeButtonTitle:@"知道了" duration:0];
     }
 }
 

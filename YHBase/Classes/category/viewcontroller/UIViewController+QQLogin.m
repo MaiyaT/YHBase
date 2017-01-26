@@ -8,7 +8,7 @@
 
 #import "UIViewController+QQLogin.h"
 #import "UserInfoTool.h"
-#import "SCLAlertView.h"
+#import "JCAlertView.h"
 #import "UIColor+BBXApp.h"
 #import "SVProgressHUD.h"
 #import "AppDelegateBase.h"
@@ -19,31 +19,15 @@
 -(BOOL)isLoginWithAlertTitle:(NSString *)showAlertTitle
 {
     if(![UserInfoTool shareManager].userID)
-    {        
-        SCLAlertView * alertV = [[SCLAlertView alloc] initWithNewWindow];
-        alertV.iconTintColor = [UIColor whiteColor];
-        alertV.customViewColor = [UIColor bbxThemeColor];
-        alertV.backgroundType = SCLAlertViewBackgroundBlur;
-        alertV.buttonFormatBlock = ^NSDictionary* (void)
-        {
-            NSMutableDictionary *buttonConfig = [[NSMutableDictionary alloc] init];
-            
-            buttonConfig[@"textColor"] = [UIColor whiteColor];
-            
-            return buttonConfig;
-        };
-        
-        [alertV addButton:@"登录" actionBlock:^{
-
-            NSLog(@"登录 界面  === 》》》 LoginViewController");
+    {
+        [JCAlertView showTwoButtonsWithTitle:@"提醒" Message:showAlertTitle ButtonType:2 ButtonTitle:@"登录" Click:^{
             
             UIViewController * loginVC = [[NSClassFromString(@"LoginViewController") alloc] init];
             [[AppDelegateBase shareAppDelegate].rootNavc presentViewController:loginVC animated:YES completion:nil];
-
+            
+        } ButtonType:0 ButtonTitle:@"不了" Click:^{
             
         }];
-        
-        [alertV showTitle:[AppDelegateBase shareAppDelegate].rootNavc title:@"提醒" subTitle:showAlertTitle style:SCLAlertViewStyleInfo closeButtonTitle:@"不了" duration:0];
         
         return NO;
     }

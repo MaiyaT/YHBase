@@ -24,21 +24,21 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - IAPHelper (1.1)
+  - JCAlertView (1.1.5)
   - Masonry (1.0.2)
   - pop (1.0.9)
-  - SCLAlertView-Objective-C (1.0.6)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SVProgressHUD (2.0.3)
-  - YHBase (1.8.0):
+  - SVProgressHUD (2.1.2)
+  - YHBase (2.0.0):
     - AFNetworking
     - AHKActionSheet
     - FMDB
     - IAPHelper
+    - JCAlertView
     - Masonry
     - pop
-    - SCLAlertView-Objective-C
     - SDWebImage
     - SVProgressHUD
 
@@ -56,12 +56,12 @@ SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   IAPHelper: fd74f53b0ac142eed085777b88b86a11746a2dd4
+  JCAlertView: c65a7b298b8b497b3db783d82f719b88f4914869
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
-  SCLAlertView-Objective-C: ca78280817e66e74366b78579350dee2ff277e23
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
-  YHBase: da5caa9e4c5d0c1ab14fd8b0d9fcb5df56ea6cfe
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  YHBase: 6565a970464d9aa038a468e5f58275be31f13d5e
 
 PODFILE CHECKSUM: 630cc83919aacbd193a5db4fa61e1ab8c3461322
 
