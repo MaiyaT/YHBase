@@ -121,6 +121,8 @@
 
 
 
+
+
 @interface AppConfigNote : NSObject
 
 + (instancetype)shareManager;
@@ -212,6 +214,8 @@
 //key
 @property (copy, nonatomic) NSString * noteSecretKey1;
 @property (copy, nonatomic) NSString * noteSecretKey2;
+
+
 
 
 @end

@@ -192,7 +192,7 @@
     [leftButton setTitle:selectTitle forState:UIControlStateSelected];
     
     
-    [leftButton.titleLabel setFont:[UIFont bbxSystemFont:12]];
+    [leftButton.titleLabel setFont:[UIFont bbxSystemFont:14]];
     
     if (event)
     {

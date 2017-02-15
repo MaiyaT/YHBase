@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 
 #import "AppConfigNote.h"
+#import "APPSettingManager.h"
 #import "HomeViewController.h"
 #import "BaseObject.h"
 #import "BBXImgAndTitleCell.h"

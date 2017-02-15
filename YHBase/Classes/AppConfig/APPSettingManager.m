@@ -1,0 +1,97 @@
+//
+//  APPSettingManager.m
+//  Pods
+//
+//  Created by 林宁宁 on 2017/2/15.
+//
+//
+
+#import "APPSettingManager.h"
+#import "BBXDBManager.h"
+#import "NSObject+YYModel.h"
+
+NSString const * DB_TableType_setting = @"tab_set";
+
+@implementation APPSettingManager
+
+
++ (instancetype)shareManager
+{
+    static APPSettingManager * manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+
+        manager = [APPSettingManager readFormLocal];
+    });
+    
+    return manager;
+}
+
+//读取本地
++ (APPSettingManager *)readFormLocal
+{
+    APPSettingManager * manager = [[APPSettingManager alloc] init];
+    
+    manager.appFont = FontSize_Normal;
+    manager.appFontName = [[APPSettingManager skinFontStyleList] firstObject];
+    
+    NSArray * dataList = [BBXDBManager getDataListFormTableType:DB_TableType_setting];
+    if([dataList count] > 0)
+    {
+        NSDictionary * dataDic = [dataList firstObject];
+        if([dataDic isKindOfClass:[NSDictionary class]])
+        {
+            NSString * json = dataDic[@"json"];
+            if([json isKindOfClass:[NSString class]])
+            {
+                NSDictionary * dataJson = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:4] options:NSJSONReadingMutableContainers error:nil];
+                if([dataJson isKindOfClass:[NSDictionary class]])
+                {
+                    manager = [APPSettingManager modelWithDictionary:dataJson];
+                    
+                }
+            }
+        }
+    }
+    
+    return manager;
+}
+
+- (void)saveTolocal
+{
+    NSString * jsonStr = [self modelToJSONString];
+    
+    NSDictionary * saveDic = @{@"id":@(0),
+                               @"json":jsonStr};
+    
+    
+    if(![BBXDBManager isExitAtTable:DB_TableType_setting withDataDic:@{@"id":@(0)}])
+    {
+        [BBXDBManager insetDataDic:saveDic toTable:DB_TableType_setting];
+    }
+    else
+    {
+        [BBXDBManager updateTableType:DB_TableType_setting withWhereDic:@{@"id":@(0)} andUpdateValue:saveDic];
+    }
+    
+}
+
+
+
+
+
++ (NSArray *)skinFontStyleList
+{
+    NSArray * systemFont = [UIFont familyNames];
+    
+    NSMutableArray * fontlist = [[NSMutableArray alloc] init];
+    
+    [fontlist addObject:[UIFont systemFontOfSize:18].fontName];
+    [fontlist addObject:@"Roboto-Light"];
+    [fontlist addObjectsFromArray:systemFont];
+    
+    return fontlist;
+}
+
+
+@end

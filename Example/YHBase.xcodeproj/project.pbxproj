@@ -248,7 +248,7 @@
 				ORGANIZATIONNAME = "林宁宁";
 				TargetAttributes = {
 					6003F5AD195388D20070C39A = {
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 						TestTargetID = 6003F589195388D20070C39A;
 					};
 				};

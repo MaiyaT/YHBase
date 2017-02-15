@@ -8,6 +8,7 @@
 
 #import "UserInfoTool.h"
 #import "MacroAppInfo.h"
+#import "AppConfigNote.h"
 
 
 @implementation UserInfoTool
@@ -28,7 +29,7 @@
 
 - (void)readFromLocal
 {
-    NSDictionary * infoDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userinfo"];
+    NSDictionary * infoDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"yh_userinfo"];
     
     if([infoDic isKindOfClass:[NSDictionary class]])
     {
@@ -112,7 +113,7 @@
         [dataDic setObject:self.userClosedADAppVersion forKey:@"userClosedADAppVersion"];
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"userinfo"];
+    [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:@"yh_userinfo"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -120,6 +121,11 @@
 
 - (BOOL)appADIsClose
 {
+    if([AppConfigNote shareManager].noteAPPIsDebug)
+    {
+        return YES;
+    }
+    
     if(self.userIdClosedAD)
     {
         return YES;
@@ -142,7 +148,7 @@
     self.userObjectID = nil;
     
     
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userinfo"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"yh_userinfo"];
     
     [self saveToLocal];
 }
