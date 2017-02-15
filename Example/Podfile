@@ -6,6 +6,5 @@ target 'YHBase_Example' do
   target 'YHBase_Tests' do
     inherit! :search_paths
 
-    pod 'FBSnapshotTestCase'
   end
 end

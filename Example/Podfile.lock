@@ -15,11 +15,6 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AHKActionSheet (0.5.4)
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
@@ -31,7 +26,7 @@ PODS:
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - SVProgressHUD (2.1.2)
-  - YHBase (2.0.0):
+  - YHBase (2.0.1):
     - AFNetworking
     - AHKActionSheet
     - FMDB
@@ -47,7 +42,6 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase
   - YHBase (from `../`)
 
 EXTERNAL SOURCES:
@@ -57,7 +51,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AHKActionSheet: f0b312b5c689f72924d231c39dae140ecd5c1d46
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   IAPHelper: fd74f53b0ac142eed085777b88b86a11746a2dd4
   JCAlertView: c65a7b298b8b497b3db783d82f719b88f4914869
@@ -65,9 +58,9 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
-  YHBase: 21c543ef4cea79c1cee5f0da17f363315a0ae001
+  YHBase: 99ef6034be925b05cbc994d42b22abee7b4889d1
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 630cc83919aacbd193a5db4fa61e1ab8c3461322
+PODFILE CHECKSUM: 5aaeb916b72e0e1afe2626e6bbca60324da7de02
 
 COCOAPODS: 1.0.1

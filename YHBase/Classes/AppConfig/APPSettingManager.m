@@ -10,7 +10,6 @@
 #import "BBXDBManager.h"
 #import "NSObject+YYModel.h"
 
-NSString const * DB_TableType_setting = @"tab_set";
 
 @implementation APPSettingManager
 
@@ -35,7 +34,7 @@ NSString const * DB_TableType_setting = @"tab_set";
     manager.appFont = FontSize_Normal;
     manager.appFontName = [[APPSettingManager skinFontStyleList] firstObject];
     
-    NSArray * dataList = [BBXDBManager getDataListFormTableType:DB_TableType_setting];
+    NSArray * dataList = [BBXDBManager getDataListFormTableType:@"tab_setting"];
     if([dataList count] > 0)
     {
         NSDictionary * dataDic = [dataList firstObject];
@@ -65,13 +64,13 @@ NSString const * DB_TableType_setting = @"tab_set";
                                @"json":jsonStr};
     
     
-    if(![BBXDBManager isExitAtTable:DB_TableType_setting withDataDic:@{@"id":@(0)}])
+    if(![BBXDBManager isExitAtTable:@"tab_setting" withDataDic:@{@"id":@(0)}])
     {
-        [BBXDBManager insetDataDic:saveDic toTable:DB_TableType_setting];
+        [BBXDBManager insetDataDic:saveDic toTable:@"tab_setting"];
     }
     else
     {
-        [BBXDBManager updateTableType:DB_TableType_setting withWhereDic:@{@"id":@(0)} andUpdateValue:saveDic];
+        [BBXDBManager updateTableType:@"tab_setting" withWhereDic:@{@"id":@(0)} andUpdateValue:saveDic];
     }
     
 }
