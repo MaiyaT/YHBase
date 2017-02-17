@@ -15,4 +15,7 @@
 
 + (UIFont *)bbxSystemFont:(float)size;
 
++(UIFont *)bbxSystemFont:(float)size withFontName:(NSString *)fontName;
+
+
 @end

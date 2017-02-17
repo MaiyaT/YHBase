@@ -11,6 +11,7 @@
 #import "NSObject+YYModel.h"
 
 
+
 @implementation APPSettingManager
 
 
@@ -19,21 +20,19 @@
     static APPSettingManager * manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-
-        manager = [APPSettingManager readFormLocal];
+        manager = [APPSettingManager modelWithDictionary:[APPSettingManager readFormLocal]];
+        if(!manager)
+        {
+            manager = [[APPSettingManager alloc] init];
+        }
     });
     
     return manager;
 }
 
 //读取本地
-+ (APPSettingManager *)readFormLocal
++ (NSDictionary *)readFormLocal
 {
-    APPSettingManager * manager = [[APPSettingManager alloc] init];
-    
-    manager.appFont = FontSize_Normal;
-    manager.appFontName = [[APPSettingManager skinFontStyleList] firstObject];
-    
     NSArray * dataList = [BBXDBManager getDataListFormTableType:@"tab_setting"];
     if([dataList count] > 0)
     {
@@ -46,14 +45,13 @@
                 NSDictionary * dataJson = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:4] options:NSJSONReadingMutableContainers error:nil];
                 if([dataJson isKindOfClass:[NSDictionary class]])
                 {
-                    manager = [APPSettingManager modelWithDictionary:dataJson];
-                    
+                    return dataJson;
                 }
             }
         }
     }
     
-    return manager;
+    return nil;
 }
 
 - (void)saveTolocal

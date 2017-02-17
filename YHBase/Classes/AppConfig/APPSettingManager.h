@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, FontSize)
 
 + (instancetype)shareManager;
 
++ (NSDictionary *)readFormLocal;
 
 - (void)saveTolocal;
 
