@@ -35,6 +35,13 @@ typedef NS_ENUM(NSInteger, FontSize)
 
 - (void)saveTolocal;
 
+
++ (NSArray *)skinColorList;
+
++ (NSArray *)skinFontStyleList;
+
+
+
 /**
  *  文字大小
  */
@@ -48,6 +55,7 @@ typedef NS_ENUM(NSInteger, FontSize)
  */
 @property (assign, nonatomic) NSInteger appSkin;
 
-
+/** 字体大小调整之后需要调整的高度*/
+- (NSInteger)fontAdjuestToAddHeight;
 
 @end

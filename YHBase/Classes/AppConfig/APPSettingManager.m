@@ -62,6 +62,8 @@
                                @"json":jsonStr};
     
     
+    [BBXDBManager addTableName:@"tab_setting" andSQLStr:@"CREATE TABLE IF NOT EXISTS tab_setting (id INTEGER PRIMARY KEY, json TEXT)"];
+    
     if(![BBXDBManager isExitAtTable:@"tab_setting" withDataDic:@{@"id":@(0)}])
     {
         [BBXDBManager insetDataDic:saveDic toTable:@"tab_setting"];
@@ -75,6 +77,23 @@
 
 
 
+/** 字体大小调整之后需要调整的高度*/
+- (NSInteger)fontAdjuestToAddHeight
+{
+    if(self.appFont == FontSize_Big)
+    {
+        return 1;
+    }
+    else if (self.appFont == FontSize_Biger)
+    {
+        return 2;
+    }
+    else if (self.appFont == FontSize_Bigest)
+    {
+        return 3;
+    }
+    return 0;
+}
 
 
 + (NSArray *)skinFontStyleList
@@ -88,6 +107,12 @@
     [fontlist addObjectsFromArray:systemFont];
     
     return fontlist;
+}
+
+
++ (NSArray *)skinColorList
+{
+    return @[@"3A3A3A",@"faa932",@"111111",@"8cbb19",@"535353",@"8d8d8d",@"00aaee",@"a686ba",@"8992c8",@"e89abe",@"e16531"];
 }
 
 

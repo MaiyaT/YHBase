@@ -10,7 +10,7 @@
 #import "Masonry.h"
 #import "UIColor+BBXApp.h"
 #import <objc/runtime.h>
-
+#import "UIFont+BBX.h"
 
 
 @implementation UITableView (Alert)
@@ -85,6 +85,7 @@
     lab.autoresizingMask = 0xff;
     lab.textAlignment = NSTextAlignmentCenter;
     lab.textColor = [UIColor bbxTextNoteColor];
+    lab.font = [UIFont bbxSystemFont:14];
     
     [alertV addSubview:lab];
 }
